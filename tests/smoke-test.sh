@@ -20,7 +20,7 @@ trap cleanup EXIT
 docker run --rm --network host \
   --env DATABASE_URL \
   --volume "$PWD/examples/01-table-source/config.yaml:/config.yaml:ro" \
-  ghcr.io/maplibre/martin:v1.16.1 --config /config.yaml >"$server_log" 2>&1 &
+  ghcr.io/maplibre/martin:1.16.1 --config /config.yaml >"$server_log" 2>&1 &
 MARTIN_PID=$!
 
 ready=0

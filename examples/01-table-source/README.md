@@ -4,7 +4,7 @@ This pattern configures Martin 1.16.1 to publish one explicitly named PostGIS ta
 
 ## Requirements
 
-- Martin 1.16.1 (the CI smoke test uses the pinned `ghcr.io/maplibre/martin:v1.16.1` image)
+- Martin 1.16.1 (the CI smoke test uses the pinned `ghcr.io/maplibre/martin:1.16.1` image)
 - PostgreSQL with PostGIS 3.5 or newer
 - A table with a stable integer feature ID, a geometry column in the configured SRID, and only the attributes intended for public tile output
 - Bash and curl for the smoke test
@@ -18,7 +18,7 @@ export DATABASE_URL='postgresql://martin_reader:REDACTED@db.example:5432/maps'
 docker run --rm --network host \
   --env DATABASE_URL \
   --volume "$PWD/examples/01-table-source/config.yaml:/config.yaml:ro" \
-  ghcr.io/maplibre/martin:v1.16.1 \
+  ghcr.io/maplibre/martin:1.16.1 \
   --config /config.yaml
 ```
 

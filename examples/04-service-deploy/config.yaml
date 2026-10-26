@@ -1,0 +1,16 @@
+# config.yaml — TEMPLATE, placeholders only.
+# Schema is version-dependent and to confirm at validation:
+# - Martin 1.15.0: use the config-file connection form
+#   (--postgres is rejected in this version).
+# - Martin 1.16.1: CLI flags govern; the `srv` key is ignored.
+# Fill in real values only in your own deployment copy, never here.
+postgres:
+  connection_string: "<PG_DSN>"
+  # Table sources are auto-discovered by default in some versions;
+  # function sources must be declared. Confirm per version:
+  # tables: ...
+  # functions: ...
+
+# Listening address (fleet context: Node-3 uses 3002):
+# srv:
+#   listen_addresses: "127.0.0.1:3000"

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Martin tiles in MapLibre — synthetic points</title>
+<!-- MapLibre version: design placeholder (@4); pin the exact version
+     at validation and record it in the pattern README. -->
+<script src="https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.js"></script>
+<link href="https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.css" rel="stylesheet">
+<style>
+  body { margin: 0; }
+  #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+  // Set MARTIN_URL to your Martin base (no trailing slash), and
+  // SOURCE_NAME to the catalog source (function source from
+  // pattern 02, or the table source from pattern 01).
+  const MARTIN_URL = '<MARTIN_URL>';
+  const SOURCE_NAME = 'synthetic_points_fn';
+
+  const map = new maplibregl.Map({
+    container: 'map',
+    // Plain background style: no third-party basemap assumed.
+    style: { version: 8, sources: {}, layers: [
+      { id: 'background', type: 'background',
+        paint: { 'background-color': '#eef2f5' } }
+    ]},
+    center: [0.0025, 0.0025],
+    zoom: 12
+  });
+
+  map.on('load', async () => {
+    // TileJSON first: the template below must match the source's
+    // advertised tiles URL (spelling to confirm at validation).
+    const tilejson = await (await fetch(
+      `${MARTIN_URL}/${SOURCE_NAME}.json`)).json();
+    map.addSource('martin', {
+      type: 'vector',
+      tiles: tilejson.tiles,
+      minzoom: tilejson.minzoom ?? 0,
+      maxzoom: tilejson.maxzoom ?? 22
+    });
+    map.addLayer({
+      id: 'synthetic-points',
+      type: 'circle',
+      source: 'martin',
+      // source-layer name: confirm against the TileJSON at validation.
+      'source-layer': tilejson.vector_layers[0].id,
+      paint: {
+        // Circle radius grows with the synthetic `value` (range 5-90).
+        'circle-radius': ['interpolate', ['linear'], ['get', 'value'],
+          5, 4, 90, 18],
+        'circle-color': '#1f6feb',
+        'circle-opacity': 0.85
+      }
+    });
+  });
+</script>
+</body>
+</html>

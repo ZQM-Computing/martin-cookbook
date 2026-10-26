@@ -38,10 +38,10 @@ Geospatial developers building web maps with MapLibre or similar clients, who wa
 | # | Example | Status | What it demonstrates |
 |---|---------|--------------------------|
 | 01 | [01-table-source](examples/01-table-source/README.md) | Implemented; CI validation pending | Explicit PostGIS table source; `/catalog`, TileJSON, and tile smoke test |
-| 02 | `02-function-source` | Function sources for parameterized tiles (bbox, filters, simplification) |
-| 03 | `03-maplibre-client` | Consuming Martin tiles in a MapLibre GL JS map (see maplibre-cookbook) |
-| 04 | `04-service-deploy` | Running Martin as a service with connection settings and health checks |
-| 05 | `05-full-workflow` | End-to-end: PostGIS table → Martin tiles → web map |
+| 02 | [02-function-source](examples/02-function-source/README.md) | Written — design-only, gate 1 target | Function sources for parameterized tiles (bbox, filters, simplification) |
+| 03 | [03-maplibre-client](examples/03-maplibre-client/README.md) | Written — design-only, gate 1 target | Consuming Martin tiles in a MapLibre GL JS map (see maplibre-cookbook) |
+| 04 | [04-service-deploy](examples/04-service-deploy/README.md) | Written — design-only, gate 1 target | Running Martin as a service with connection settings and health checks |
+| 05 | [05-full-workflow](examples/05-full-workflow/README.md) | Written — design-only, gate 1 target | End-to-end: PostGIS table → Martin tiles → web map |
 
 ## Repository layout
 

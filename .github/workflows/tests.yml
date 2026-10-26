@@ -36,7 +36,7 @@ jobs:
         run: python -m pip install 'psycopg[binary]==3.2.9'
       - name: Seed disposable PostGIS fixture
         run: python tests/seed_database.py
-      - name: Validate shell syntax
-        run: bash -n tests/smoke-test.sh
+      - name: Validate shell syntax for every example
+        run: find examples tests -type f -name '*.sh' -print0 | xargs -0 -r -n1 bash -n
       - name: Test Martin catalog, TileJSON, and tile endpoint
         run: bash tests/smoke-test.sh

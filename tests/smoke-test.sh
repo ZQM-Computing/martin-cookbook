@@ -47,7 +47,11 @@ import json
 import sys
 with open(sys.argv[1], encoding="utf-8") as stream:
     catalog = json.load(stream)
-ids = {entry.get("id") or entry.get("name") for entry in catalog}
+if isinstance(catalog, dict):
+    entries = catalog.get("tilesets", catalog)
+    ids = set(entries.keys()) if isinstance(entries, dict) else {entry.get("id") or entry.get("name") for entry in entries}
+else:
+    ids = {entry.get("id") or entry.get("name") for entry in catalog}
 if "places" not in ids:
     raise SystemExit(f"places source missing from Martin catalog: {sorted(str(x) for x in ids)}")
 PY

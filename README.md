@@ -15,7 +15,7 @@ A **Martin cookbook** for serving vector tiles straight from PostGIS, with funct
 
 ## Repository role and status
 
-**Status:** Active, public — seeding. Pattern passes land in follow-up work from fleet-verified setups; the tables below list what is planned, not what is already written.
+**Status:** Active, public — first executable table-source pattern added. The pinned-runtime CI smoke test is the evidence gate for catalog, TileJSON, and tile endpoint behavior.
 
 **What this repository is:** Martin patterns — Postgres table sources, function sources, tile endpoints, and service deployment.
 
@@ -33,11 +33,11 @@ Geospatial developers building web maps with MapLibre or similar clients, who wa
 - Postgres with PostGIS and a table to serve (see [postgis-cookbook](https://github.com/ZQM-Computing/postgis-cookbook))
 - Bash
 
-## Patterns (planned)
+## Patterns
 
-| # | Example | What it will demonstrate |
+| # | Example | Status | What it demonstrates |
 |---|---------|--------------------------|
-| 01 | `01-table-source` | Serving a PostGIS table as vector tiles, with `/catalog` and tile endpoints |
+| 01 | [01-table-source](examples/01-table-source/README.md) | Implemented; CI validation pending | Explicit PostGIS table source; `/catalog`, TileJSON, and tile smoke test |
 | 02 | `02-function-source` | Function sources for parameterized tiles (bbox, filters, simplification) |
 | 03 | `03-maplibre-client` | Consuming Martin tiles in a MapLibre GL JS map (see maplibre-cookbook) |
 | 04 | `04-service-deploy` | Running Martin as a service with connection settings and health checks |
@@ -47,14 +47,16 @@ Geospatial developers building web maps with MapLibre or similar clients, who wa
 
 ```text
 martin-cookbook/
-├── examples/          # pattern passes, landing in follow-up work
+├── examples/01-table-source/  # explicit PostGIS table source
+├── tests/                    # contract and live smoke tests
+├── .github/workflows/        # disposable PostGIS integration CI
 ├── README.md
 └── LICENSE
 ```
 
 ## Roadmap
 
-- First pattern pass: table + function sources (01, 02)
+- First pattern pass: table source (01), then function source (02)
 - Second pass: client + deployment (03, 04)
 - Version-notes page covering the 1.15.0 / 1.16.1 CLI and config differences found on the fleet
 

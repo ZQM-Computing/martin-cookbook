@@ -21,7 +21,7 @@ class TableSourceContractTests(unittest.TestCase):
         workflow = WORKFLOW.read_text(encoding="utf-8")
         smoke = SMOKE.read_text(encoding="utf-8")
         self.assertIn("postgis/postgis:16-3.5", workflow)
-        self.assertIn("ghcr.io/maplibre/martin:v1.16.1", smoke)
+        self.assertIn("ghcr.io/maplibre/martin:1.16.1", smoke)
 
     def test_docs_bound_the_security_and_validation_claims(self):
         guide = GUIDE.read_text(encoding="utf-8").lower()

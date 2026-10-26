@@ -1,0 +1,13 @@
+# Martin 1.16.1 table-source configuration.
+# DATABASE_URL is expanded by Martin at startup; keep credentials outside this file.
+postgres:
+  connection_string: ${DATABASE_URL}
+  tables:
+    places:
+      schema: public
+      table: places
+      srid: 4326
+      geometry_column: geom
+      id_column: id
+      properties:
+        name: text

@@ -11,7 +11,7 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-A **Martin cookbook** for serving vector tiles straight from PostGIS, with function sources and tile serving at scale. Patterns are drawn from the ZQM fleet's running Martin installs (1.15.0 on Node-1, 1.16.1 on Node-3, both verified `/catalog` and tile endpoints against Natural Earth tables in PostGIS). It is intended for GIS engineers and web-mapping developers who want live vector tiles without a tile cache; validate each pattern against your own data, software versions, and operating environment before adopting it.
+A **Martin cookbook** for serving vector tiles straight from PostGIS, with function sources and tile serving at scale. Patterns are drawn from the ZQM fleet's running Martin installs (1.15.0 on Node-1, 1.16.1 on Node-3, both verified `/catalog` and tile endpoints against Natural Earth tables in PostGIS) (as of Oct 2026; verify against the current fleet). It is intended for GIS engineers and web-mapping developers who want live vector tiles without a tile cache; validate each pattern against your own data, software versions, and operating environment before adopting it.
 
 ## Repository role and status
 

@@ -2,13 +2,16 @@
 set -Eeuo pipefail
 
 : "${DATABASE_URL:?Set DATABASE_URL for the disposable PostGIS database}"
-MARTIN_URL="${MARTIN_URL:-http://127.0.0.1:3000}"
+MARTIN_URL="${MARTIN_URL:-http://127.0.0.1:13000}"
 tmpdir="$(mktemp -d)"
 server_log="$tmpdir/martin.log"
 cleanup() {
   if [[ -n "${MARTIN_PID:-}" ]]; then
     kill "$MARTIN_PID" 2>/dev/null || true
     wait "$MARTIN_PID" 2>/dev/null || true
+  fi
+  if [[ -n "${MARTIN_CID:-}" ]]; then
+    docker rm -f "$MARTIN_CID" >/dev/null 2>&1 || true
   fi
   if [[ "${KEEP_MARTIN_LOG:-0}" == "1" ]]; then
     cat "$server_log"
@@ -17,10 +20,15 @@ cleanup() {
 }
 trap cleanup EXIT
 
-docker run --rm --network host \
+# The checkout lives inside the runner container and is not visible to the
+# Docker daemon, so the config is copied into a created container instead of
+# bind-mounted. Host port 3000 is already taken by a local service, so Martin
+# listens on 13000.
+MARTIN_CID="$(docker create --network host \
   --env DATABASE_URL \
-  --volume "$PWD/examples/01-table-source/config.yaml:/config.yaml:ro" \
-  ghcr.io/maplibre/martin:1.16.1 --config /config.yaml >"$server_log" 2>&1 &
+  ghcr.io/maplibre/martin:1.16.1 --config /config.yaml -l 0.0.0.0:13000)"
+docker cp "$PWD/examples/01-table-source/config.yaml" "$MARTIN_CID:/config.yaml"
+docker start -a "$MARTIN_CID" >"$server_log" 2>&1 &
 MARTIN_PID=$!
 
 ready=0

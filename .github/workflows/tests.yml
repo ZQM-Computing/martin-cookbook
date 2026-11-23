@@ -20,14 +20,17 @@ jobs:
           POSTGRES_PASSWORD: test-only-password
           POSTGRES_DB: martin_test
         ports:
-          - 5432:5432
+          # 15432, not 5432: the host already runs Postgres on 5432, so
+          # publishing the default killed every run with
+          # "Bind for 0.0.0.0:5432 failed: port is already allocated".
+          - 15432:5432
         options: >-
           --health-cmd "pg_isready -U postgres -d martin_test"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 10
     env:
-      DATABASE_URL: postgresql://postgres:test-only-password@127.0.0.1:5432/martin_test
+      DATABASE_URL: postgresql://postgres:test-only-password@127.0.0.1:15432/martin_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
